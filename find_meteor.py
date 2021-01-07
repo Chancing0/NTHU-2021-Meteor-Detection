@@ -23,7 +23,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
   # (5) Line erosion
   dilation = cv2.erode(dilation, kernel, iterations = 1)
   # (6) Cloudy detection and mask producing
-  aa = np.zeros(dilation.shape,np.uint8)
+  Cloud_mask = np.zeros(dilation.shape,np.uint8)
   contour,hier = cv2.findContours(dilation,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_SIMPLE)
   contour_able = 0
   try:
@@ -32,7 +32,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
       if area > 1550:
         #print(area)
         contour_able = 1
-        cv2.drawContours(aa,[cnt],0,255,-1)
+        cv2.drawContours(Cloud_mask,[cnt],0,255,-1)
   except:
     contour_able = 0
 
@@ -41,7 +41,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
     kernel_dilate = np.ones((7,7), np.uint8)
     #contour_maks = cv2.dilate(cv2.bitwise_not(aa), kernel_dilate, iterations = 1)
     #dilation_mask = dilation * contour_maks
-    dilation_mask = dilation * cv2.dilate(cv2.bitwise_not(aa), kernel_dilate, iterations = 1)
+    dilation_mask = dilation * cv2.dilate(cv2.bitwise_not(Cloud_mask), kernel_dilate, iterations = 1)
     dilation_mask = 255*dilation_mask
   else: 
     #print('Nice Weather')
@@ -62,7 +62,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
       if show_all_step:
         #result = cv2.hconcat((cv2.cvtColor(img_gray_canny_crop, cv2.COLOR_GRAY2BGR), cv2.cvtColor(dilation, cv2.COLOR_GRAY2BGR), cv2.cvtColor(aa, cv2.COLOR_GRAY2BGR), cv2.cvtColor(dilation_mask, cv2.COLOR_GRAY2BGR), img))
         result1 = cv2.hconcat((cv2.cvtColor(img_gray, cv2.COLOR_GRAY2BGR), cv2.cvtColor(img_gray_canny, cv2.COLOR_GRAY2BGR), cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR), cv2.cvtColor(img_gray_canny_crop, cv2.COLOR_GRAY2BGR)))
-        result2 = cv2.hconcat((cv2.cvtColor(dilation, cv2.COLOR_GRAY2BGR), cv2.cvtColor(aa, cv2.COLOR_GRAY2BGR), cv2.cvtColor(dilation_mask, cv2.COLOR_GRAY2BGR),img))
+        result2 = cv2.hconcat((cv2.cvtColor(dilation, cv2.COLOR_GRAY2BGR), cv2.cvtColor(Cloud_mask, cv2.COLOR_GRAY2BGR), cv2.cvtColor(dilation_mask, cv2.COLOR_GRAY2BGR),img))
         result = cv2.vconcat([result1, result2])
         cv2_imshow(result)
       return 1
