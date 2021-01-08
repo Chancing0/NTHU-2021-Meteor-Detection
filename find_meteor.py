@@ -23,7 +23,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
   # (5) Line erosion
   dilation = cv2.erode(dilation, kernel, iterations = 1)
   # (6) Cloudy detection and mask producing
-  Cloud_mask = np.zeros(dilation.shape,np.uint8)
+  cloud_mask = np.zeros(dilation.shape,np.uint8)
   contour,hier = cv2.findContours(dilation,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_SIMPLE)
   contour_able = 0
   try:
@@ -32,7 +32,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
       if area > 1550:
         #print(area)
         contour_able = 1
-        cv2.drawContours(Cloud_mask,[cnt],0,255,-1)
+        cv2.drawContours(cloud_mask,[cnt],0,255,-1)
   except:
     contour_able = 0
 
@@ -41,7 +41,7 @@ def method1(img_path, mask, show_all_step=False, minimal_lenth=300):
     kernel_dilate = np.ones((7,7), np.uint8)
     #contour_maks = cv2.dilate(cv2.bitwise_not(aa), kernel_dilate, iterations = 1)
     #dilation_mask = dilation * contour_maks
-    dilation_mask = dilation * cv2.dilate(cv2.bitwise_not(Cloud_mask), kernel_dilate, iterations = 1)
+    dilation_mask = dilation * cv2.dilate(cv2.bitwise_not(cloud_mask), kernel_dilate, iterations = 1)
     dilation_mask = 255*dilation_mask
   else: 
     #print('Nice Weather')
