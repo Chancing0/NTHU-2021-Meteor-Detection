@@ -15,10 +15,10 @@
 7.根據是否找到面積大於 1550 的遮罩去決定使用（5）還是（6）的結果去做直綫偵測。如果測到還有直綫存在，就當作可能有流星，然後保存下來檔名，或者直接存這些圖下來。  
 | processing  |  example 1 |example 2|
 |---|---|---|
-| (0)Raw iamge|  ![](https://i.imgur.com/Rganqfw.png)|![](https://i.imgur.com/8Yb2kSU.png)|
+| (0) Raw iamge|  ![](https://i.imgur.com/Rganqfw.png)|![](https://i.imgur.com/8Yb2kSU.png)|
 | (1) Loading image  |  ![](https://i.imgur.com/di9KnR2.png) |  ![](https://i.imgur.com/KtbXhrD.png) |
 | (2) Edge detection : Canny |  ![](https://i.imgur.com/mS1lLdA.png) | ![](https://i.imgur.com/pobFtF1.png)  |
 | (3) Apply the mask to the result of edge detection  |![](https://i.imgur.com/wWNwwql.png)![](https://i.imgur.com/tYwkhXm.png)  | ![](https://i.imgur.com/TD1lgmI.png)![](https://i.imgur.com/w7zdha8.png)  |
-|(4) Line dilatation|  ![](https://i.imgur.com/17sEB8F.png) |![](https://i.imgur.com/EDxZmaH.png)|
-|(6) Cloudy detection and mask producing|  ![](https://i.imgur.com/w9mI4hl.png)![](https://i.imgur.com/GHuT2oG.png)   |![](https://i.imgur.com/6MM1DbS.png)![](https://i.imgur.com/hJ2kZ1N.png)|
-|(7) Line detection|  ![](https://i.imgur.com/qSOWlFi.png)  |![](https://i.imgur.com/HNgRMFk.png)|
+|(4) Line dilatation:  dilate|  ![](https://i.imgur.com/17sEB8F.png) |![](https://i.imgur.com/EDxZmaH.png)|
+|(6) Cloudy detection and mask producing:  findContours , drawContours|  ![](https://i.imgur.com/w9mI4hl.png)![](https://i.imgur.com/GHuT2oG.png)   |![](https://i.imgur.com/6MM1DbS.png)![](https://i.imgur.com/hJ2kZ1N.png)|
+|(7) Line detection :  HoughLinesP|  ![](https://i.imgur.com/qSOWlFi.png)  |![](https://i.imgur.com/HNgRMFk.png)|
